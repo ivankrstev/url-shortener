@@ -1,0 +1,15 @@
+.modal-body span {
+  font-weight: 600;
+}
+.modal-title {
+  display: flex !important;
+  align-items: baseline;
+}
+.modal-title svg {
+  max-width: 30% !important;
+}
+@media (min-width: 768px) {
+  .modal-dialog {
+    min-width: 50% !important;
+  }
+}

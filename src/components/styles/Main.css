@@ -1,0 +1,17 @@
+.main > div {
+  max-width: 90% !important;
+}
+.main label {
+  font-size: 0.95rem;
+}
+#mainurl-r {
+  color: #90ee90;
+  display: none;
+}
+#mainurl-x {
+  color: #f00;
+  display: none;
+}
+ul li {
+  font-size: 1rem;
+}

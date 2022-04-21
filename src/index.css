@@ -1,0 +1,172 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #d7e3ee;
+}
+
+a {
+  text-decoration: none;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.target-url span {
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.profile-div {
+  display: none;
+}
+
+.main form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 365px;
+}
+
+.blabla div,
+.blabla ul,
+.blabla li {
+  width: 100%;
+}
+
+.loader-spinner {
+  display: flex;
+  text-align: center;
+}
+
+.main div:nth-child(1) div {
+  min-width: 100%;
+}
+
+.copy a {
+  font-size: 1.1rem !important;
+}
+
+.copy button {
+  padding: 0 0.3rem 0 0.3rem !important;
+  height: 24px !important;
+  font-size: small !important;
+}
+
+.row {
+  max-width: 100% !important;
+}
+
+ul a {
+  max-width: 80% !important;
+}
+
+.btn-clear {
+  padding: 0 0.3rem 0 0.3rem !important;
+}
+
+.maxw-80 {
+  max-width: 80% !important;
+}
+.minw-100 {
+  max-width: 100% !important;
+}
+
+.stats-btn {
+  padding: 0 0.35rem 0.1rem 0.35rem !important;
+  height: 24px !important;
+}
+.stats-btn:focus {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/*  Extra mall screen  */
+@media (max-width: 575px) {
+  .Toastify__toast-container {
+    max-width: 75% !important;
+    margin-top: 1rem;
+    margin-left: auto;
+  }
+  body {
+    font-size: 15px !important;
+  }
+  .login-signup {
+    width: 80%;
+  }
+}
+/*  Small screen  */
+@media (min-width: 576px) {
+  body {
+    font-size: 15px !important;
+  }
+  .login-signup {
+    width: 65%;
+  }
+  .validator-icon {
+    top: 8px !important;
+  }
+}
+/*  Medium screen  */
+@media (min-width: 768px) {
+  body {
+    font-size: 14px !important;
+  }
+  .login-signup {
+    width: 45%;
+  }
+  .validator-icon {
+    top: 7px !important;
+    font-size: 1rem;
+  }
+}
+/*  Large screen  */
+@media (min-width: 992px) {
+  body {
+    font-size: 16px !important;
+  }
+  .login-signup {
+    width: 33%;
+  }
+  .validator-icon {
+    top: 7px !important;
+  }
+}
+/*  Extra large screen  */
+@media (min-width: 1200px) {
+  body {
+    font-size: 18px !important;
+  }
+  .login-signup {
+    width: 28%;
+  }
+  .validator-icon {
+    top: 6px !important;
+    font-size: 1.05rem;
+  }
+}
+/*  Extra extra large screen  */
+@media (min-width: 1400px) {
+  body {
+    font-size: 23px !important;
+  }
+  .login-signup {
+    width: 25%;
+  }
+  .validator-icon {
+    font-size: 1.2rem;
+    top: 4px !important;
+  }
+}

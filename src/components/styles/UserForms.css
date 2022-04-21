@@ -1,0 +1,30 @@
+.login-signup {
+  display: block;
+  margin: 2rem auto !important;
+  margin: auto;
+}
+
+.login-signup div {
+  position: relative;
+}
+
+.login-signup input {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+.login-signup span {
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#login-feedback,
+#signup-feedback {
+  margin-top: 0.5em;
+  color: #f00;
+  font-size: 1.25em;
+}
