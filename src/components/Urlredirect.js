@@ -1,16 +1,12 @@
 import NotFound from "./NotFound";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { db } from "../firebase/firebase";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
-import moment from "moment";
 
 function Urlredirect() {
   const params = useParams();
   const [status, setStatus] = useState("");
-
-  const id = params;
-  console.log(id);
 
   async function checkData(params) {
     setStatus("loading");
@@ -20,15 +16,20 @@ function Urlredirect() {
       if (docSnap.data().user) {
         await updateDoc(docRef, {
           countOpener: docSnap.data().countOpener + 1,
-          lastAccessed: moment().format("dddd, Do MMMM YYYY, h:mm:ss"),
+          lastAccessed: Date.now(),
         });
         try {
           // We use try because the fetch can be blocked by Ad Blocker
-          const ip = await fetch("https://api.ipify.org/?format=json").then(
-            (res) => res.json().then((res) => res.ip)
+          // const ip = await fetch("https://api.ipify.org/?format=json").then(
+          //   (res) => res.json().then((res) => res.ip)
+          // );
+          const ipData = await fetch("https://geolocation-db.com/json/").then(
+            (res) => res.json().then((res) => res)
           );
           await updateDoc(docRef, {
-            ipaddress: arrayUnion(ip),
+            ipaddress: arrayUnion(
+              ipData.IPv4 + " - " + ipData.city + "," + ipData.country_name
+            ),
           });
         } catch (e) {
           console.log(e);
@@ -52,12 +53,7 @@ function Urlredirect() {
       window.location.href = link;
       return null;
     }
-    if (status !== "loading") {
-      if (status && status !== "notfound") {
-        run(status);
-      } else if (status === "notfound") {
-      } else if (status) run("/");
-    }
+    if (status && status !== "loading" && status !== "notfound") run(status);
   }, [status]);
 
   useEffect(() => console.log(status), [status]);
@@ -71,7 +67,7 @@ function Urlredirect() {
             height: "7rem",
             marginTop: "14rem",
           }}
-          className='spinner-border text-primary fs-3'
+          className='spinner-border text-primary fs-2'
           role='status'>
           <span className='visually-hidden'>Loading...</span>
         </div>

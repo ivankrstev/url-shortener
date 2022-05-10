@@ -4,6 +4,7 @@ import { db } from "../firebase/firebase";
 import { onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import { Modal, Button } from "react-bootstrap";
 import Loader from "./Loader";
+import moment from "moment";
 
 function Popup(props) {
   const [data, setData] = useState({});
@@ -40,7 +41,7 @@ function Popup(props) {
           {data.id ? data.id : <Loader strokeWidth='1' />}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body onTimeUpdate={console.log("changed")}>
+      <Modal.Body>
         {loading ? (
           <Loader className='my-5 d-flex justify-content-center' />
         ) : data.id ? (
@@ -53,11 +54,16 @@ function Popup(props) {
               The link was opened {data.countOpener} times.
             </p>
             <p className='my-1'>
-              <span>Date Created: </span> {data.dateCreated}
+              <span>Date Created: </span>
+              {moment(data.dateCreated).format("dddd, Do MMMM YYYY, H:mm:ss")}
             </p>
             <p className='my-1'>
               <span>Last Accessed: </span>
-              {data.lastAccessed}
+              {data.lastAccessed !== "No accessed yet."
+                ? moment(data.lastAccessed).format(
+                    "dddd, Do MMMM YYYY, H:mm:ss"
+                  )
+                : "No accessed yet."}
             </p>
             <ul className='list-group my-1'>
               <h6 className='m-0 my-1'>Locations</h6>
@@ -69,7 +75,7 @@ function Popup(props) {
                 ))
               ) : (
                 <li className='list-group-item' key='key'>
-                  No accessed yet
+                  No location yet
                 </li>
               )}
             </ul>

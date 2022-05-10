@@ -1,9 +1,15 @@
 .modal-body span {
-  font-weight: 600;
+  font-weight: 500;
 }
 .modal-title {
   display: flex !important;
   align-items: baseline;
+}
+.modal-body p {
+  font-size: 1rem !important;
+}
+.modal-body li {
+  font-size: 0.9rem !important;
 }
 .modal-title svg {
   max-width: 30% !important;
@@ -11,5 +17,11 @@
 @media (min-width: 768px) {
   .modal-dialog {
     min-width: 50% !important;
+  }
+  .modal-body p {
+    font-size: 1.2rem !important;
+  }
+  .modal-body li {
+    font-size: 1rem !important;
   }
 }

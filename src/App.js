@@ -8,7 +8,6 @@ import Login from "./components/Login";
 import PasswordReset from "./components/PasswordReset";
 import Profile from "./components/Profile";
 import Navbar from "./components/Navbar";
-import NotFound from "./components/NotFound";
 import { ToastContainer } from "react-toastify";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "./firebase/firebase";
