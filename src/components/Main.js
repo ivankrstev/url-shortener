@@ -5,21 +5,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import moment from "moment";
+import Loader from "./Loader";
 
 async function checkAllPaths(customLinkPath) {
   // Check id of documents in collection "links"
   // To get only IDS (used as paths) from Firestore
   let status; // variable 'status' for returning false if there is same value as provided
   const querySnapshot = await getDocs(collection(db, "links"));
-  querySnapshot.forEach((doc) => {
-    console.log(doc.id);
-    if (doc.id === customLinkPath) {
-      console.log("FALSEEEE");
-      status = "false";
-    }
-  });
-  console.log(Date.now() + " Done Query");
+  querySnapshot.forEach(
+    (doc) => doc.id === customLinkPath && (status = "false")
+  );
   if (status === "false") return false;
   else return true;
 }
@@ -29,6 +24,7 @@ function Main() {
   const [targetUrl, setUrlToRedirect] = useState("");
   const [customLinkPath, setCustomLinkPath] = useState("");
   const [result, setResult] = useState("");
+  const [loading, setLoading] = useState();
   const [localUrls, setLocalUrls] = useState(
     JSON.parse(localStorage.getItem("recenturls")) || []
   );
@@ -65,7 +61,8 @@ function Main() {
       customLinkPath === "login" ||
       customLinkPath === "signup" ||
       customLinkPath === "reset-password" ||
-      customLinkPath === "profile"
+      customLinkPath === "profile" ||
+      customLinkPath === "notfound"
     ) {
       toast.error(`The path ${customLinkPath} is reserved.`);
     } else {
@@ -102,8 +99,9 @@ function Main() {
           }
 
           if (res === false) {
-            toast.error("That custom URL already exists");
+            status = "exists";
             document.querySelector("#custom-url").value = "";
+            setCustomLinkPath("");
           } else if (res === true) {
             try {
               await setDoc(doc(db, "links", idForDocument), {
@@ -111,7 +109,7 @@ function Main() {
                 user: user || null,
                 countOpener: 0,
                 ipaddress: [],
-                dateCreated: moment().format("dddd, Do MMMM YYYY, h:mm:ss"),
+                dateCreated: Date.now(),
                 lastAccessed: "No accessed yet.",
               });
               toast.success("Successfully Shortened");
@@ -119,11 +117,18 @@ function Main() {
               status = "created";
             } catch (e) {
               console.error("Error adding document: ", e);
-              toast.error(e);
-              status = e;
+              let arr = e.message.split(" ");
+              for (let a of arr) {
+                if (
+                  a === "Missing" ||
+                  a === "insufficient" ||
+                  a === "permissions"
+                )
+                  status = "exists";
+              }
+              if (status !== "exists") status = e;
             }
           } else {
-            toast.error("An error occurred");
             status = "error";
           }
         } else status = "invalid";
@@ -134,7 +139,7 @@ function Main() {
 
   return (
     <Fragment>
-      <div className='main row justify-content-center align-items-center m-md-0 mt-5 mt-md-5'>
+      <div className='main row justify-content-center align-items-start m-md-0 mt-5 mt-md-5'>
         <div className='maxw-80 col-12 col-md-6 d-flex justify-content-center'>
           <form
             className='d-flex justify-content-center'
@@ -143,7 +148,7 @@ function Main() {
               <label className='form-label' htmlFor='targetUrl'>
                 Enter the Target Url to create a URLSH URL
               </label>
-              <div className='position-relative'>
+              <div className='w-100 position-relative'>
                 <input
                   id='targetUrl'
                   type='text'
@@ -182,12 +187,13 @@ function Main() {
               className='btn btn-primary w-75'
               type='submit'
               onClick={async () => {
+                setLoading(true);
                 const res = await runShortener(
                   targetUrl,
                   customLinkPath,
                   user && user.uid
                 );
-                console.log(res);
+                if (res) setLoading(false);
                 if (res === "created") {
                   setCustomLinkPath("");
                   setUrlToRedirect("");
@@ -198,10 +204,16 @@ function Main() {
                   document.querySelector("#mainurl-x").style.display = "none";
                 } else if (res === "invalid")
                   toast.error("Please provide a valid URL address");
-                else if (res === "nourl")
+                else if (res === "exists") {
+                  toast.error("That custom URL already exists");
+                  document.querySelector("#custom-url").value = "";
+                  setCustomLinkPath("");
+                } else if (res === "nourl")
                   toast.error("Please provide an URL address");
+                else if (res === "error") toast.error("An error occurred");
+                else if (res) toast.error(res);
               }}>
-              Shorten
+              {loading ? <Loader className='fs-6' /> : "Shorten"}
             </button>
           </form>
         </div>
@@ -226,11 +238,13 @@ function Main() {
               localUrls.map((e) => (
                 <li key={e} className='copy mt-1'>
                   <div className='d-flex align-items-center'>
-                    <Link to={"/" + e}>urlsh1.web.app/{e}</Link>
+                    <Link to={"/" + e}>
+                      {window.location.hostname + "/" + e}
+                    </Link>
                     <button
                       onClick={(e) => {
                         navigator.clipboard.writeText(
-                          "https://" +
+                          window.location.hostname +
                             e.currentTarget.previousElementSibling.textContent
                         );
                       }}

@@ -32,8 +32,6 @@ function Profile(props) {
       linksSnapshot.forEach((doc) =>
         setLinks((elements) => [...elements, { id: doc.id, ...doc.data() }])
       );
-      if (linksSnapshot) {
-      }
     }
   }, [user]);
 
@@ -44,6 +42,7 @@ function Profile(props) {
   useEffect(() => {
     console.log(popupData);
   }, [popupData]);
+
   useEffect(() => {
     console.log(data);
   }, [data]);
@@ -55,9 +54,14 @@ function Profile(props) {
       <div className='w-75 flex-column align-items-start'>
         {data && (
           <Fragment>
-            <h3>Your Name: {data.name}</h3>
-            <h4 className='text-start'>Your email: {data.email}</h4>
-            <p className='mb-0'>Your Links:</p>
+            <h3>
+              Name: <span className='fs-5 fw-normal'>{data.name}</span>
+            </h3>
+            <h4 className='text-start'>
+              Email Address:{" "}
+              <span className='fs-5 fw-normal'>{data.email}</span>
+            </h4>
+            <p className='mb-0 fs-5'>Links:</p>
           </Fragment>
         )}
         {links ? (

@@ -18,8 +18,6 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
   apiKey: "AIzaSyDjNcDKtAJ2o-jBnoBzDcnVvfxZp1y5eos",
@@ -78,7 +76,6 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       name,
       authProvider: "local",
       email,
-      userLinks: [],
     });
     status = "registered";
   } catch (error) {
