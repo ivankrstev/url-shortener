@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "urlsh1",
+    "staging": "urlsh1"
+  },
+  "targets": {}
+}
