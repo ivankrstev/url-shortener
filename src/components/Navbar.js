@@ -40,7 +40,7 @@ function Navbar() {
               <i className='bi bi-person-circle'></i>
             </button>
             <ul className='dropdown-menu' aria-labelledby='dropdownMenuButton1'>
-              <Link to='/profile' className='dropdown-item d-flex minw-100'>
+              <Link to='/profile' className='dropdown-item d-flex'>
                 Your Profile
               </Link>
               <li>

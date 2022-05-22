@@ -1,0 +1,44 @@
+.qr-code-btn {
+  margin-left: 0.3em;
+}
+.povover-header-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.download-buttons {
+  margin-top: 0.5em;
+  max-width: 100%;
+  display: flex;
+}
+.download-buttons .btn {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0.2em 0.3em;
+  margin: 0 0.1em;
+}
+.download-buttons i {
+  font-size: 0.75em;
+  padding-right: 0.3em;
+}
+
+.popover-header .btn {
+  font-size: 0.6em;
+  padding: 0.25em 0.5em;
+}
+@media (min-width: 768px) {
+  .popover-header .btn {
+    font-size: 0.75em;
+  }
+}
+@media (min-width: 992px) {
+  .popover-header .btn {
+    font-size: 0.8em;
+  }
+}
+@media (min-width: 1200px) {
+  .popover-header .btn {
+    font-size: 0.87em;
+  }
+}

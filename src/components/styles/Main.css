@@ -1,8 +1,22 @@
+.main form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 365px;
+}
+.target-url span {
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .main > div {
   max-width: 90% !important;
 }
 .main label {
-  font-size: 0.95rem;
+  font-size: 1em;
 }
 #mainurl-r {
   color: #90ee90;
@@ -12,8 +26,22 @@
   color: #f00;
   display: none;
 }
-ul li {
-  font-size: 1rem;
+.btn-clear {
+  padding: 0 0.3rem;
+}
+.localurls a {
+  max-width: 80% !important;
+}
+.localurls {
+  padding-left: 1.1em !important;
+}
+.link a {
+  font-size: 1.2em;
+}
+.link button {
+  padding: 0 0.25rem !important;
+  height: fit-content;
+  font-size: 0.87em;
 }
 #btn-shorten {
   display: flex;
@@ -23,4 +51,42 @@ ul li {
 #btn-shorten svg {
   width: 1.6rem;
   stroke: #fff;
+}
+@media (min-width: 768px) {
+  .link button {
+    font-size: 0.9em;
+  }
+  .link a {
+    font-size: 1.2em;
+  }
+  .main label {
+    font-size: 1.2em;
+  }
+}
+@media (min-width: 992px) {
+  .link button {
+    font-size: 0.9em;
+  }
+  .link a {
+    font-size: 1.2em;
+  }
+  .main label {
+    font-size: 1.05em;
+  }
+}
+@media (min-width: 1200px) {
+  .main label {
+    font-size: 0.95em;
+  }
+}
+@media (min-width: 1400px) {
+  .link button {
+    font-size: 0.65em;
+  }
+  .link a {
+    font-size: 0.95em;
+  }
+  .main label {
+    font-size: 0.75em;
+  }
 }
