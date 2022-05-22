@@ -50,10 +50,6 @@ function QRcode({ elID, link }) {
     return img;
   };
 
-  useEffect(() => {
-    console.log(target?.id);
-  }, [target]);
-
   const handlemouse = (event) => {
     let overlayClicked = false;
     console.log("LoopRuns");
