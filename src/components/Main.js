@@ -6,6 +6,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
+import QRcode from "./QRcode";
 
 async function checkAllPaths(customLinkPath) {
   // Check id of documents in collection "links"
@@ -145,7 +146,7 @@ function Main() {
             className='d-flex justify-content-center'
             onSubmit={(e) => e.preventDefault()}>
             <div className='target-url d-flex flex-column align-items-start'>
-              <label className='form-label' htmlFor='targetUrl'>
+              <label id='hahahah' className='form-label' htmlFor='targetUrl'>
                 Enter the Target Url to create a URLSH URL
               </label>
               <div className='w-100 position-relative'>
@@ -218,7 +219,7 @@ function Main() {
           </form>
         </div>
         <div className='maxw-80 blabla col-12 col-md-6 mt-4 mt-md-0'>
-          <div className='maxw-80 d-flex align-items-baseline'>
+          <div className='d-flex align-items-baseline'>
             <h5>Recent URLs: </h5>
             {(localStorage.getItem("recenturls") || result) && (
               <button
@@ -233,26 +234,43 @@ function Main() {
               </button>
             )}
           </div>
-          <ul>
+          <ul className='localurls'>
             {localUrls.length > 0 ? (
               localUrls.map((e) => (
-                <li key={e} className='copy mt-1'>
+                <li key={e} className='d-flex link mt-1'>
                   <div className='d-flex align-items-center'>
                     <Link to={"/" + e}>
                       {window.location.hostname + "/" + e}
                     </Link>
                     <button
-                      onClick={(e) => {
-                        navigator.clipboard.writeText(
-                          window.location.hostname +
-                            e.currentTarget.previousElementSibling.textContent
+                      onClick={(event) => {
+                        navigator?.clipboard?.writeText(
+                          event.currentTarget.previousElementSibling.textContent
                         );
                       }}
                       title='Copy to clipboard'
-                      className='btn btn btn-outline-primary ms-2'>
+                      className='btn btn-outline-primary ms-2'>
                       <i className='me-1 bi bi-clipboard'></i>
                       <span>Copy</span>
                     </button>
+                    <QRcode
+                      elID={e}
+                      link={window.location.hostname + "/" + e}
+                    />
+                    <button
+                      onClick={() => {}}
+                      className='btn btn-outline-primary ms-1 share-btn'>
+                      <i className='bi bi-share'></i>
+                    </button>
+                    <a
+                      href={
+                        "mailto:?subject=Link%20Sharing%20from%20Url%20Shortener&body=https://" +
+                        window.location.hostname +
+                        "/" +
+                        e
+                      }>
+                      Send meil
+                    </a>
                   </div>
                 </li>
               ))

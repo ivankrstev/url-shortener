@@ -2,26 +2,63 @@
   font-weight: 500;
 }
 .modal-title {
-  display: flex !important;
+  display: flex;
   align-items: baseline;
 }
 .modal-body p {
-  font-size: 1rem !important;
+  font-size: 1em;
 }
 .modal-body li {
-  font-size: 0.9rem !important;
+  font-size: 1em;
 }
 .modal-title svg {
-  max-width: 30% !important;
+  max-width: 30%;
 }
 @media (min-width: 768px) {
   .modal-dialog {
-    min-width: 50% !important;
+    min-width: 50%;
   }
   .modal-body p {
-    font-size: 1.2rem !important;
+    font-size: 1.2em;
   }
   .modal-body li {
-    font-size: 1rem !important;
+    font-size: 1.1em;
+  }
+}
+
+@media (min-width: 992px) {
+  .modal-dialog {
+    min-width: 50%;
+  }
+  .modal-body p {
+    font-size: 1.2em;
+  }
+  .modal-body li {
+    font-size: 1.1em;
+  }
+}
+/*  Extra large screen  */
+@media (min-width: 1200px) {
+  .modal-dialog {
+    min-width: 50%;
+  }
+  .modal-body p {
+    font-size: 1em;
+  }
+  .modal-body li {
+    font-size: 1.1em;
+  }
+}
+/*  Extra extra large screen  */
+@media (min-width: 1400px) {
+  .modal-dialog {
+    min-width: 50%;
+  }
+  .modal-body p {
+    font-size: 0.85em;
+  }
+  .modal-body li,
+  .modal-body h6 {
+    font-size: 0.8em;
   }
 }

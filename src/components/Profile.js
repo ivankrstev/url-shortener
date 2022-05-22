@@ -54,22 +54,25 @@ function Profile(props) {
       <div className='w-75 flex-column align-items-start'>
         {data && (
           <Fragment>
-            <h3>
+            <h5>
               Name: <span className='fs-5 fw-normal'>{data.name}</span>
-            </h3>
-            <h4 className='text-start'>
+            </h5>
+            <h5 className='text-start'>
               Email Address:{" "}
               <span className='fs-5 fw-normal'>{data.email}</span>
-            </h4>
+            </h5>
             <p className='mb-0 fs-5'>Links:</p>
           </Fragment>
         )}
         {links ? (
           <Fragment>
-            <ul>
+            <ul className='userlinks'>
               {links.length > 0 ? (
                 links.map((e) => (
-                  <li className='mt-1' style={{ textAlign: "left" }} key={e.id}>
+                  <li
+                    className='mt-1 d-flex justify-content-start align-items-center'
+                    style={{ textAlign: "left" }}
+                    key={e.id}>
                     <Link to={"/" + e.id}>urlsh1.web.app/{e.id}</Link>
                     <button
                       onClick={() => setPopupData(e.id)}
