@@ -17,12 +17,15 @@ function App() {
   const [user, loading] = useAuthState(auth);
   const [userData, setUserData] = useState();
 
-  useEffect(async () => {
-    if (user) {
-      const u = query(collection(db, "users"), where("uid", "==", user.uid));
-      const usersSnapshot = await getDocs(u);
-      usersSnapshot.forEach((doc) => setUserData(doc.data()));
+  useEffect(() => {
+    async function getUser() {
+      if (user) {
+        const u = query(collection(db, "users"), where("uid", "==", user.uid));
+        const usersSnapshot = await getDocs(u);
+        usersSnapshot.forEach((doc) => setUserData(doc.data()));
+      }
     }
+    getUser();
     if (loading) setUserData("loading");
   }, [user]);
 
