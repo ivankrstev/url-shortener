@@ -25,14 +25,17 @@ function Profile(props) {
     }
   }, [user, loading]);
 
-  useEffect(async () => {
-    if (user) {
-      const l = query(collection(db, "links"), where("user", "==", user.uid));
-      const linksSnapshot = await getDocs(l);
-      linksSnapshot.forEach((doc) =>
-        setLinks((elements) => [...elements, { id: doc.id, ...doc.data() }])
-      );
+  useEffect(() => {
+    async function getUserLinks() {
+      if (user) {
+        const l = query(collection(db, "links"), where("user", "==", user.uid));
+        const linksSnapshot = await getDocs(l);
+        linksSnapshot.forEach((doc) =>
+          setLinks((elements) => [...elements, { id: doc.id, ...doc.data() }])
+        );
+      }
     }
+    getUserLinks();
   }, [user]);
 
   useEffect(() => {

@@ -118,7 +118,6 @@ function QRcode({ elID, link }) {
                 <a
                   className='btn btn-outline-primary'
                   href={svgImage}
-                  target='_blank'
                   download={elID.replaceAll("/", "-") + ".svg"}>
                   <i className='bi bi-download'></i>
                   svg
