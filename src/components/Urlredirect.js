@@ -46,6 +46,7 @@ function Urlredirect() {
     return () => {
       setStatus(undefined);
     };
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

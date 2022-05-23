@@ -15,15 +15,13 @@ function QRcode({ elID, link }) {
     if (svg) {
       const serializer = new XMLSerializer();
       let source = serializer?.serializeToString(svg);
-      if (
-        !source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)
-      ) {
+      if (!source.match(/^<svg[^>]+xmlns="http:\/\/www\.w3\.org\/2000\/svg"/)) {
         source = source.replace(
           /^<svg/,
           '<svg xmlns="http://www.w3.org/2000/svg"'
         );
       }
-      if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+      if (!source.match(/^<svg[^>]+"http:\/\/www\.w3\.org\/1999\/xlink"/)) {
         source = source.replace(
           /^<svg/,
           '<svg xmlns:xlink="http://www.w3.org/1999/xlink"'
@@ -40,19 +38,16 @@ function QRcode({ elID, link }) {
     const canvas = document?.querySelector("canvas");
     const img = canvas?.toDataURL("image/png", 1.0);
     setPngImage(img);
-    return img;
   };
 
   const convertJpeg = () => {
     const canvas = document?.querySelector("canvas");
     const img = canvas?.toDataURL("image/jpeg", 1.0);
     setJpegImage(img);
-    return img;
   };
 
   const handlemouse = (event) => {
     let overlayClicked = false;
-    console.log("LoopRuns");
     event?.path?.forEach((e) => {
       if (e.id === elID) overlayClicked = true;
     });
@@ -66,12 +61,13 @@ function QRcode({ elID, link }) {
   useEffect(() => {
     if (showOverlay) {
       document.body.addEventListener("click", handlemouse, true);
-      setTimeout(() => {
-        convertJpeg();
-        convertPng();
-        convertSvg();
-      }, 150);
+      // setTimeout(() => {
+      convertJpeg();
+      convertPng();
+      convertSvg();
+      // }, 150);
     } else document.body.removeEventListener("click", handlemouse, true);
+    // eslint-disable-next-line
   }, [showOverlay]);
 
   return (
@@ -80,7 +76,6 @@ function QRcode({ elID, link }) {
         id={"btn-" + elID}
         onClick={(event) => {
           setTarget(event.currentTarget);
-          console.log("QR CLICKED");
           setShowOverlay(!showOverlay);
           if (document.querySelectorAll('[role="tooltip"]')?.length < 2) {
             setShowOverlay(true);

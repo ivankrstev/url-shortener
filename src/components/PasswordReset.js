@@ -9,9 +9,11 @@ function PasswordReset() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [user] = useAuthState(auth);
+  // eslint-disable-next-line
   useEffect(() => user && navigate("/"), [user]);
   useEffect(() => {
     if (
+      // eslint-disable-next-line
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         email
       )

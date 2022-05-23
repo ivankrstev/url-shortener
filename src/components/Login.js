@@ -14,11 +14,13 @@ function Login() {
   const [user] = useAuthState(auth);
 
   // If user is logged in, navigate to main page
+  // eslint-disable-next-line
   useEffect(() => user && navigate("/"), [user]);
   // If values are not valid, disable the Log In Button
   useEffect(() => {
     if (
       password.length > 7 &&
+      // eslint-disable-next-line
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         email
       )

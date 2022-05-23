@@ -27,7 +27,7 @@ function App() {
     }
     getUser();
     if (loading) setUserData("loading");
-  }, [user]);
+  }, [user, loading]);
 
   return (
     <div className='App'>
