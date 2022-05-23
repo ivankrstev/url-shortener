@@ -15,7 +15,9 @@ function SignUp() {
   const navigate = useNavigate();
 
   // If user is logged in, navigate to main page
+  // eslint-disable-next-line
   useEffect(() => user && navigate("/"), [user]);
+
   // If values are not valid, disable the Sign Up Button
   useEffect(() => {
     if (
@@ -24,6 +26,7 @@ function SignUp() {
       name.split(" ")[1] !== "" &&
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password) &&
       password === confirmPassword &&
+      // eslint-disable-next-line
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         email
       )

@@ -26,6 +26,7 @@ function Popup(props) {
       setData(undefined);
       unsubscribe();
     };
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -95,6 +96,7 @@ function Popup(props) {
         </Button>
         <Button
           variant='secondary'
+          // eslint-disable-next-line
           onClick={() => (handleClose, props.setModalData(undefined))}>
           Close
         </Button>

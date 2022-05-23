@@ -34,6 +34,7 @@ function Main() {
     if (targetUrl !== "") {
       if (
         targetUrl !== "" &&
+        // eslint-disable-next-line
         /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
           targetUrl
         )
@@ -69,6 +70,7 @@ function Main() {
     } else {
       if (targetUrl !== "") {
         if (
+          // eslint-disable-next-line
           /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
             targetUrl
           )

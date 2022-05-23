@@ -23,6 +23,8 @@ function Profile(props) {
       toast.error("You are not logged in");
       navigate("/");
     }
+    console.log("Run Profile");
+    // eslint-disable-next-line
   }, [user, loading]);
 
   useEffect(() => {
