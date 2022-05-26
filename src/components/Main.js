@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
 import QRcode from "./QRcode";
+import { Overlay, Tooltip } from "react-bootstrap";
 
 function Main() {
   const [user] = useAuthState(auth);
@@ -19,6 +20,8 @@ function Main() {
   );
   const [createLink, setCreateLink] = useState(false);
   const [status, setStatus] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [target, setTarget] = useState();
 
   const linkCanBeUsed = async (customLinkPath) => {
     // Check id of documents in collection "links"
@@ -36,7 +39,7 @@ function Main() {
     // Handle Target Url style validation
     if (
       // eslint-disable-next-line
-      /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
+      /^(http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
         targetUrl
       )
     ) {
@@ -80,7 +83,7 @@ function Main() {
       if (targetUrl !== "") {
         if (
           // eslint-disable-next-line
-          /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
+          /^(http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
             targetUrl
           )
         ) {
@@ -96,8 +99,7 @@ function Main() {
               if (res) idForDocument = generatedID;
             }
             if (res === false && customLinkPath !== "") setStatus("exists");
-            else if (res === true) {
-            } else setStatus("error");
+            else if (!res) setStatus("error");
           } else setStatus("invalidCustom");
         } else setStatus("invalid");
       } else setStatus("nourl");
@@ -176,6 +178,16 @@ function Main() {
     else if (status) toast.error(status);
   }, [status]);
 
+  const addHttps = () => {
+    const element = document.querySelector("#targetUrl");
+    if (element) {
+      element.value = "https://" + element.value;
+      setTargetUrl(element.value);
+      handleTargetUrlValidate(element.value);
+      setShowTooltip(false);
+    }
+  };
+
   return (
     <Fragment>
       <div className='main row justify-content-center align-items-start m-md-0 mt-5 mt-md-5'>
@@ -195,10 +207,39 @@ function Main() {
                   className='form-control w-100'
                   required={true}
                   onChange={(e) => {
+                    setTarget(e.currentTarget);
+                    if (
+                      // eslint-disable-next-line
+                      /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
+                        e.target.value
+                      ) &&
+                      // eslint-disable-next-line
+                      !/^(http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
+                        e.target.value
+                      )
+                    ) {
+                      setShowTooltip(true);
+                      setTarget(e.currentTarget);
+                    } else {
+                      setShowTooltip(false);
+                      setTarget(undefined);
+                    }
                     handleTargetUrlValidate(e.target.value);
                     setTargetUrl(e.target.value);
                   }}
                 />
+                <Overlay target={target} show={showTooltip} placement='top'>
+                  <Tooltip id='tooltip-targeturl'>
+                    <p className='my-1'>Maybe you are missing https://</p>
+                    <button
+                      onClick={() => addHttps()}
+                      className='btn btn-sm btn-light'
+                      id='btn-add-https'>
+                      <i className='bi bi-plus'></i>
+                      Add
+                    </button>
+                  </Tooltip>
+                </Overlay>
                 <span className='validator-icon' id='mainUrl-r'>
                   &#10004;
                 </span>
