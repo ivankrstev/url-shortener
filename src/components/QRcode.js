@@ -73,6 +73,7 @@ function QRcode({ elID, link }) {
   return (
     <Fragment>
       <button
+        title='Get QR Code'
         id={"btn-" + elID}
         onClick={(event) => {
           setTarget(event.currentTarget);

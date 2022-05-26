@@ -28,12 +28,7 @@ a {
 .profile-div {
   display: none;
 }
-.blabla div,
-.blabla ul,
-.blabla li {
-  width: 100%;
-  max-width: 100%;
-}
+
 .loader-spinner {
   display: flex;
   text-align: center;
@@ -45,7 +40,7 @@ a {
 .row {
   max-width: 100% !important;
 }
-.userlinks a {
+.userLinks a {
   font-size: 1.15em;
 }
 .maxw-80 {
@@ -116,6 +111,9 @@ a {
 }
 /*  Extra large screen  */
 @media (min-width: 1200px) {
+  .Toastify__toast-container {
+    font-size: 0.87em;
+  }
   body {
     font-size: 18px !important;
   }
@@ -129,6 +127,9 @@ a {
 }
 /*  Extra extra large screen  */
 @media (min-width: 1400px) {
+  .Toastify__toast-container {
+    font-size: 0.77em;
+  }
   body {
     font-size: 23px !important;
   }

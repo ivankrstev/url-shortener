@@ -18,21 +18,21 @@
 .main label {
   font-size: 1em;
 }
-#mainurl-r {
+#mainUrl-r {
   color: #90ee90;
   display: none;
 }
-#mainurl-x {
+#mainUrl-x {
   color: #f00;
   display: none;
 }
 .btn-clear {
   padding: 0 0.3rem;
 }
-.localurls a {
+.recentUrls a {
   max-width: 80% !important;
 }
-.localurls {
+.recentUrls {
   padding-left: 1.1em !important;
 }
 .link a {
@@ -75,6 +75,12 @@
   }
 }
 @media (min-width: 1200px) {
+  .link button {
+    font-size: 0.8em;
+  }
+  .link a {
+    font-size: 1em;
+  }
   .main label {
     font-size: 0.95em;
   }
@@ -84,7 +90,7 @@
     font-size: 0.65em;
   }
   .link a {
-    font-size: 0.95em;
+    font-size: 0.82em;
   }
   .main label {
     font-size: 0.75em;

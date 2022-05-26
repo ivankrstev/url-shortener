@@ -71,7 +71,7 @@ function Profile(props) {
         )}
         {links ? (
           <Fragment>
-            <ul className='userlinks'>
+            <ul className='userLinks'>
               {links.length > 0 ? (
                 links.map((e) => (
                   <li
