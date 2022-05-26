@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { db } from "../firebase/firebase";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import useDetectOffline from "use-detect-offline";
+import { toast } from "react-toastify";
 
 function Urlredirect() {
   const params = useParams();
   const [status, setStatus] = useState("loading");
+  const [wasOffline, setWasOffline] = useState(false);
+  const { offline } = useDetectOffline();
 
   async function checkData(params) {
     const docRef = doc(db, "links", params["*"]);
@@ -42,11 +46,21 @@ function Urlredirect() {
 
   useEffect(() => {
     checkData(params);
+    if (!navigator.onLine) {
+      toast.error("You are offline");
+      setWasOffline(true);
+    }
     return () => {
       setStatus(undefined);
     };
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    // If 
+    if (wasOffline && !offline) checkData(params);
+    // eslint-disable-next-line
+  }, [offline]);
 
   useEffect(() => {
     function run(link) {

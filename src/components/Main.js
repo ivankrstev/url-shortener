@@ -271,20 +271,15 @@ function Main() {
                       elID={e}
                       link={window.location.hostname + "/" + e}
                     />
-                    <button
-                      title='Share'
-                      onClick={() => {}}
-                      className='btn btn-outline-primary ms-1 share-btn'>
-                      <i className='bi bi-share'></i>
-                    </button>
                     <a
+                      className='btn'
                       href={
                         "mailto:?subject=Link%20Sharing%20from%20Url%20Shortener&body=https://" +
                         window.location.hostname +
                         "/" +
                         e
                       }>
-                      Send mail
+                      <i class='bi bi-envelope'></i>
                     </a>
                   </div>
                 </li>
