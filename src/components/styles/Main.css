@@ -52,6 +52,26 @@
   width: 1.6rem;
   stroke: #fff;
 }
+#tooltip-targeturl .tooltip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0d6efd;
+}
+#tooltip-targeturl .tooltip-arrow::before {
+  border-top-color: #0d6efd;
+}
+#tooltip-targeturl {
+  margin: 0 !important;
+  left: -7% !important;
+}
+#btn-add-https {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  padding: 0rem 0.25rem;
+  offset: 10px;
+}
 @media (min-width: 768px) {
   .link button {
     font-size: 0.9em;
@@ -83,6 +103,9 @@
   }
   .main label {
     font-size: 0.95em;
+  }
+  #tooltip-targeturl {
+    left: -3% !important;
   }
 }
 @media (min-width: 1400px) {
