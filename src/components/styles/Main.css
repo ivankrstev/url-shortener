@@ -38,7 +38,7 @@
 .link a {
   font-size: 1.2em;
 }
-.link button {
+.link .btn {
   padding: 0 0.25rem !important;
   height: fit-content;
   font-size: 0.87em;
