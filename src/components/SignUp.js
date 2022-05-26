@@ -12,12 +12,21 @@ function SignUp() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [toggleSignUp, setToggleSignUp] = useState(false);
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
 
   // If user is logged in, navigate to main page
   // eslint-disable-next-line
   useEffect(() => user && navigate("/"), [user]);
+
+  async function runSignUp() {
+    const res = await registerWithEmailAndPassword(name, email, password);
+    if (res === "registered") {
+      toast.success("Successfully Registered");
+      setTimeout(() => navigate("/"), 1000);
+    } else if (res) errorHandler(res, password);
+  }
 
   // If values are not valid, disable the Sign Up Button
   useEffect(() => {
@@ -36,13 +45,42 @@ function SignUp() {
     else document.getElementById("btnSignUp").setAttribute("disabled", "true");
   }, [name, email, password, confirmPassword]);
 
-  async function runSignUp() {
-    const res = await registerWithEmailAndPassword(name, email, password);
-    if (res === "registered") {
-      toast.success("Successfully Registered");
-      setTimeout(() => navigate("/"), 1000);
-    } else if (res) errorHandler(res, password);
-  }
+  useEffect(() => {
+    if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password)) {
+      if (confirmPassword !== "") {
+        if (password === confirmPassword) {
+          document.getElementById("password-confirm").style.borderColor =
+            "#90EE90";
+          document.getElementById("passwordConfirm-r").style.display = "block";
+          document.getElementById("passwordConfirm-x").style.display = "none";
+        } else {
+          document.getElementById("password-confirm").style.borderColor =
+            "#F00";
+          document.getElementById("passwordConfirm-r").style.display = "none";
+          document.getElementById("passwordConfirm-x").style.display = "block";
+        }
+      }
+    }
+  }, [password, confirmPassword]);
+
+  useEffect(() => {
+    if (toggleSignUp) {
+      if (name.split(" ").length < 2 || name.split(" ")[1] === "")
+        toast.error("Please provide a valid name");
+      else if (
+        // eslint-disable-next-line
+        !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+          email
+        )
+      )
+        toast.error("Please provide a valid email address");
+      else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password))
+        toast.error("Please provide a valid password");
+      else runSignUp();
+      setToggleSignUp(false);
+    }
+    // eslint-disable-next-line
+  }, [toggleSignUp]);
 
   return (
     <Fragment>
@@ -214,7 +252,7 @@ function SignUp() {
             id='btnSignUp'
             type='submit'
             className='btn btn-outline-primary'
-            onClick={runSignUp}>
+            onClick={() => setToggleSignUp(true)}>
             Sign Up
           </button>
         </form>
