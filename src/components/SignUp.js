@@ -5,6 +5,7 @@ import { Fragment, useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
 import emailStyleValidator from "./scripts/emailStyleValidator";
+import errorHandler from "./scripts/errorHandler";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -40,19 +41,7 @@ function SignUp() {
     if (res === "registered") {
       toast.success("Successfully Registered");
       setTimeout(() => navigate("/"), 1000);
-    } else if (res) {
-      let errorMessage = res;
-      errorMessage = errorMessage.replace("(", "").replace(").", "");
-      const array = errorMessage.split(" ");
-      let exactmessage = array[array.length - 1].split("/");
-      let array2 = exactmessage[1].split("-");
-      let finalmessage = "Error: ";
-      for (let item of array2) finalmessage += " " + item;
-      if (finalmessage === "Error: internal error" && password.length < 5)
-        document.getElementById("login-feedback").innerText =
-          "Error: invalid password";
-      toast.error(finalmessage);
-    }
+    } else if (res) errorHandler(res, password);
   }
 
   return (
@@ -193,30 +182,30 @@ function SignUp() {
                   document.getElementById(
                     "password-confirm"
                   ).style.borderColor = "#90EE90";
-                  document.getElementById("passwordconfirm-r").style.display =
+                  document.getElementById("passwordConfirm-r").style.display =
                     "block";
-                  document.getElementById("passwordconfirm-x").style.display =
+                  document.getElementById("passwordConfirm-x").style.display =
                     "none";
                 } else {
                   document.getElementById(
                     "password-confirm"
                   ).style.borderColor = "#F00";
-                  document.getElementById("passwordconfirm-r").style.display =
+                  document.getElementById("passwordConfirm-r").style.display =
                     "none";
-                  document.getElementById("passwordconfirm-x").style.display =
+                  document.getElementById("passwordConfirm-x").style.display =
                     "block";
                 }
               }}
             />
             <span
               className='validator-icon'
-              id='passwordconfirm-r'
+              id='passwordConfirm-r'
               style={{ color: "#90EE90", display: "none" }}>
               &#10004;
             </span>
             <span
               className='validator-icon'
-              id='passwordconfirm-x'
+              id='passwordConfirm-x'
               style={{ color: "#F00", display: "none" }}>
               &#10006;
             </span>
@@ -229,7 +218,6 @@ function SignUp() {
             Sign Up
           </button>
         </form>
-        <p id='signup-feedback'></p>
       </div>
     </Fragment>
   );

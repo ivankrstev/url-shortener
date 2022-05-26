@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { auth, sendPasswordReset } from "../firebase/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import emailStyleValidator from "./scripts/emailStyleValidator";
 import { toast } from "react-toastify";
+import emailStyleValidator from "./scripts/emailStyleValidator";
+import errorHandler from "./scripts/errorHandler";
 
 function PasswordReset() {
   const navigate = useNavigate();
@@ -28,17 +29,7 @@ function PasswordReset() {
     if (res === "sent") {
       toast.success("Password reset link sent");
       setTimeout(() => navigate("/login"), 1000);
-    } else if (res) {
-      let errorMessage = res;
-      errorMessage = errorMessage.replace("(", "");
-      errorMessage = errorMessage.replace(").", "");
-      const array = errorMessage.split(" ");
-      let exactmessage = array[array.length - 1].split("/");
-      let array2 = exactmessage[1].split("-");
-      let finalmessage = "Error:";
-      for (let item of array2) finalmessage += " " + item;
-      toast.error(finalmessage);
-    }
+    } else if (res) errorHandler();
   }
 
   return (

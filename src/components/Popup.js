@@ -68,8 +68,8 @@ function Popup(props) {
             </p>
             <ul className='list-group my-1'>
               <h6 className='m-0 my-1'>Locations</h6>
-              {data.ipaddress && data.ipaddress.length > 0 ? (
-                data.ipaddress.map((e) => (
+              {data.ipAddress && data.ipAddress.length > 0 ? (
+                data.ipAddress.map((e) => (
                   <li key={e} className='list-group-item'>
                     {e}
                   </li>

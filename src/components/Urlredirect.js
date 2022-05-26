@@ -27,8 +27,8 @@ function Urlredirect() {
             (res) => res.json().then((res) => res)
           );
           await updateDoc(docRef, {
-            ipaddress: arrayUnion(
-              ipData.IPv4 + " - " + ipData.city + "," + ipData.country_name
+            ipAddress: arrayUnion(
+              ipData.IPv4 + " - " + ipData.city + ", " + ipData.country_name
             ),
           });
         } catch (e) {
