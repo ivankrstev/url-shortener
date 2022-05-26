@@ -6,10 +6,9 @@ import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 
 function Urlredirect() {
   const params = useParams();
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("loading");
 
   async function checkData(params) {
-    setStatus("loading");
     const docRef = doc(db, "links", params["*"]);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
