@@ -57,7 +57,7 @@ function Urlredirect() {
   }, []);
 
   useEffect(() => {
-    // If 
+    // If the user was offline and then went back online, run the redirect
     if (wasOffline && !offline) checkData(params);
     // eslint-disable-next-line
   }, [offline]);

@@ -84,22 +84,21 @@ function Main() {
             targetUrl
           )
         ) {
-          if (customLinkPath !== "") {
-            res = await linkCanBeUsed(customLinkPath);
-            if (res) idForDocument = customLinkPath;
-          } else {
-            while (!res) {
-              generatedID = new Date().getTime().toString(36);
-              res = await linkCanBeUsed(generatedID);
+          if (!customLinkPath.includes("/")) {
+            if (customLinkPath !== "") {
+              res = await linkCanBeUsed(customLinkPath);
+              if (res) idForDocument = customLinkPath;
+            } else {
+              while (!res) {
+                generatedID = new Date().getTime().toString(36);
+                res = await linkCanBeUsed(generatedID);
+              }
+              if (res) idForDocument = generatedID;
             }
-            if (res) idForDocument = generatedID;
-          }
-          if (res === false && customLinkPath !== "") {
-            setStatus("exists");
-            document.querySelector("#custom-url").value = "";
-            setCustomLinkPath("");
-          } else if (res === true) {
-          } else setStatus("error");
+            if (res === false && customLinkPath !== "") setStatus("exists");
+            else if (res === true) {
+            } else setStatus("error");
+          } else setStatus("invalidCustom");
         } else setStatus("invalid");
       } else setStatus("nourl");
     }
@@ -162,6 +161,10 @@ function Main() {
     status && setBtnLoading(false);
     if (status === "created") {
       resetLinkForm();
+    } else if (status === "invalidCustom") {
+      document.querySelector("#custom-url").value = "";
+      setCustomLinkPath("");
+      toast.error("Please provide a valid custom alias");
     } else if (status === "invalid")
       toast.error("Please provide a valid URL address");
     else if (status === "exists") {
@@ -272,14 +275,14 @@ function Main() {
                       link={window.location.hostname + "/" + e}
                     />
                     <a
-                      className='btn'
+                      className='btn btn-outline-primary ms-1'
                       href={
                         "mailto:?subject=Link%20Sharing%20from%20Url%20Shortener&body=https://" +
                         window.location.hostname +
                         "/" +
                         e
                       }>
-                      <i class='bi bi-envelope'></i>
+                      <i className='bi bi-envelope'></i>
                     </a>
                   </div>
                 </li>
